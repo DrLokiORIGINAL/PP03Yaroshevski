@@ -1,0 +1,215 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Хранилище DBModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="TablitsaPolzovateley">
+          <Key>
+            <PropertyRef Name="PPUser" />
+          </Key>
+          <Property Name="PPUser" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Login" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="Password" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="IdRole" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TablitsaRoli">
+          <Key>
+            <PropertyRef Name="PPRole" />
+          </Key>
+          <Property Name="PPRole" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RoleTitle" Type="nvarchar" MaxLength="30" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TablitsaZayavki">
+          <Key>
+            <PropertyRef Name="PP" />
+          </Key>
+          <Property Name="PP" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="LastNameS" Type="nchar" MaxLength="50" />
+          <Property Name="FirstNameS" Type="nchar" MaxLength="50" />
+          <Property Name="MiddleNameS" Type="nchar" MaxLength="50" />
+          <Property Name="LastNameO" Type="nchar" MaxLength="50" />
+          <Property Name="FirstNameO" Type="nchar" MaxLength="50" />
+          <Property Name="MiddleName" Type="nchar" MaxLength="50" />
+          <Property Name="DescriptionOfTheProblem" Type="nchar" MaxLength="50" />
+          <Property Name="OfficeNumber" Type="int" />
+          <Property Name="EmployeeTelephoneNumber" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <Association Name="FK_TablitsaPolzovateley_TablitsaRoli">
+          <End Role="TablitsaRoli" Type="Self.TablitsaRoli" Multiplicity="1" />
+          <End Role="TablitsaPolzovateley" Type="Self.TablitsaPolzovateley" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TablitsaRoli">
+              <PropertyRef Name="PPRole" />
+            </Principal>
+            <Dependent Role="TablitsaPolzovateley">
+              <PropertyRef Name="IdRole" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище DBModelContainer">
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TablitsaPolzovateley" EntityType="Self.TablitsaPolzovateley" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TablitsaRoli" EntityType="Self.TablitsaRoli" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TablitsaZayavki" EntityType="Self.TablitsaZayavki" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_TablitsaPolzovateley_TablitsaRoli" Association="Self.FK_TablitsaPolzovateley_TablitsaRoli">
+            <End Role="TablitsaRoli" EntitySet="TablitsaRoli" />
+            <End Role="TablitsaPolzovateley" EntitySet="TablitsaPolzovateley" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="DBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="sysdiagram">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="TablitsaPolzovateley">
+          <Key>
+            <PropertyRef Name="PPUser" />
+          </Key>
+          <Property Name="PPUser" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Login" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="IdRole" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="TablitsaRoli" Relationship="Self.FK_TablitsaPolzovateley_TablitsaRoli" FromRole="TablitsaPolzovateley" ToRole="TablitsaRoli" />
+        </EntityType>
+        <EntityType Name="TablitsaRoli">
+          <Key>
+            <PropertyRef Name="PPRole" />
+          </Key>
+          <Property Name="PPRole" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RoleTitle" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="TablitsaPolzovateleys" Relationship="Self.FK_TablitsaPolzovateley_TablitsaRoli" FromRole="TablitsaRoli" ToRole="TablitsaPolzovateley" />
+        </EntityType>
+        <EntityType Name="TablitsaZayavki">
+          <Key>
+            <PropertyRef Name="PP" />
+          </Key>
+          <Property Name="PP" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="LastNameS" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+          <Property Name="FirstNameS" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+          <Property Name="MiddleNameS" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+          <Property Name="LastNameO" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+          <Property Name="FirstNameO" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+          <Property Name="MiddleName" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+          <Property Name="DescriptionOfTheProblem" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+          <Property Name="OfficeNumber" Type="Int32" />
+          <Property Name="EmployeeTelephoneNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <Association Name="FK_TablitsaPolzovateley_TablitsaRoli">
+          <End Role="TablitsaRoli" Type="Self.TablitsaRoli" Multiplicity="1" />
+          <End Role="TablitsaPolzovateley" Type="Self.TablitsaPolzovateley" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TablitsaRoli">
+              <PropertyRef Name="PPRole" />
+            </Principal>
+            <Dependent Role="TablitsaPolzovateley">
+              <PropertyRef Name="IdRole" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+          <EntitySet Name="TablitsaPolzovateleys" EntityType="Self.TablitsaPolzovateley" />
+          <EntitySet Name="TablitsaRolis" EntityType="Self.TablitsaRoli" />
+          <EntitySet Name="TablitsaZayavkis" EntityType="Self.TablitsaZayavki" />
+          <AssociationSet Name="FK_TablitsaPolzovateley_TablitsaRoli" Association="Self.FK_TablitsaPolzovateley_TablitsaRoli">
+            <End Role="TablitsaRoli" EntitySet="TablitsaRolis" />
+            <End Role="TablitsaPolzovateley" EntitySet="TablitsaPolzovateleys" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище DBModelContainer" CdmEntityContainer="DBEntities">
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="DBModel.sysdiagram">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TablitsaPolzovateleys">
+            <EntityTypeMapping TypeName="DBModel.TablitsaPolzovateley">
+              <MappingFragment StoreEntitySet="TablitsaPolzovateley">
+                <ScalarProperty Name="PPUser" ColumnName="PPUser" />
+                <ScalarProperty Name="Login" ColumnName="Login" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="IdRole" ColumnName="IdRole" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TablitsaRolis">
+            <EntityTypeMapping TypeName="DBModel.TablitsaRoli">
+              <MappingFragment StoreEntitySet="TablitsaRoli">
+                <ScalarProperty Name="PPRole" ColumnName="PPRole" />
+                <ScalarProperty Name="RoleTitle" ColumnName="RoleTitle" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TablitsaZayavkis">
+            <EntityTypeMapping TypeName="DBModel.TablitsaZayavki">
+              <MappingFragment StoreEntitySet="TablitsaZayavki">
+                <ScalarProperty Name="PP" ColumnName="PP" />
+                <ScalarProperty Name="LastNameS" ColumnName="LastNameS" />
+                <ScalarProperty Name="FirstNameS" ColumnName="FirstNameS" />
+                <ScalarProperty Name="MiddleNameS" ColumnName="MiddleNameS" />
+                <ScalarProperty Name="LastNameO" ColumnName="LastNameO" />
+                <ScalarProperty Name="FirstNameO" ColumnName="FirstNameO" />
+                <ScalarProperty Name="MiddleName" ColumnName="MiddleName" />
+                <ScalarProperty Name="DescriptionOfTheProblem" ColumnName="DescriptionOfTheProblem" />
+                <ScalarProperty Name="OfficeNumber" ColumnName="OfficeNumber" />
+                <ScalarProperty Name="EmployeeTelephoneNumber" ColumnName="EmployeeTelephoneNumber" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

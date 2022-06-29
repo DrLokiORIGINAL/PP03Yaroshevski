@@ -1,0 +1,98 @@
+﻿<Window x:Class="PP03Yaroshevski.WindowFolder.OperatorFolder.MenuOperApplicationWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PP03Yaroshevski.WindowFolder.OperatorFolder"
+        mc:Ignorable="d"
+        Title="Меню Оператора"
+        Height="450" Width="1100"
+        MinHeight="450" MinWidth="1100"
+        WindowStartupLocation="CenterScreen"
+        Loaded="Window_Loaded"
+        Icon="/PP03Yaroshevski;component/ResourceFolder/ImageFolder/иконка.jpg" >
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="10"/>
+            <ColumnDefinition Width="160"/>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="10"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="10"/>
+            <RowDefinition Height="100"/>
+            <RowDefinition Height="10"/>
+            <RowDefinition Height="45"/>
+            <RowDefinition Height="10"/>
+            <RowDefinition Height="70"/>
+            <RowDefinition Height="10"/>
+            <RowDefinition/>
+            <RowDefinition Height="10"/>
+        </Grid.RowDefinitions>
+        <Image Grid.Column="1" Grid.Row="1" x:Name="imageico">
+            <Image.Source>
+                <FormatConvertedBitmap Source="/PP03Yaroshevski;component/ResourceFolder/ImageFolder/Оператор.png"/>
+            </Image.Source>
+        </Image>
+        <Label Content="Меню Оператора"
+Grid.Row="1" Grid.Column="2"
+Style="{DynamicResource LabelLogoStyle}"/>
+        <Menu Grid.Row="3" Grid.Column="1"
+Grid.ColumnSpan="2">
+            <MenuItem x:Name="FileIm" Header="Меню">
+                <MenuItem x:Name="ExitIm" Header="Выход" Click="ExitIm_Click"/>
+            </MenuItem>
+            <MenuItem x:Name="AddIm"
+Header="Добавить заявку"
+Click="AddIm_Click"/>
+            <MenuItem x:Name="EditIm"
+Header="Редактировать заявку"
+Click="EditIm_Click"/>
+        </Menu>
+        <Label Content="Поиск" Grid.Row="5"
+Grid.Column="1"
+Style="{DynamicResource LabelNormalStyle}"/>
+        <TextBox x:Name="SearchTb" Grid.Row="5"
+Grid.Column="2"
+TextChanged="SearchTb_TextChanged"/>
+        <DataGrid x:Name="ListUserDG"
+IsReadOnly="True"
+Grid.Row="7"
+Grid.ColumnSpan="4"
+AutoGenerateColumns="False"
+MouseDoubleClick="ListUserDG_MouseDoubleClick">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="№ п/п"
+Binding="{Binding PP}"
+Width="50"/>
+                <DataGridTextColumn Header="Проблема"
+Binding="{Binding DescriptionOfTheProblem}"
+Width="*"/>
+                <DataGridTextColumn Header="Номер кабинета"
+Width="*"
+Binding="{Binding OfficeNumber}"/>
+                <DataGridTextColumn Header="Фамилия сотрудника"
+Width="*"
+Binding="{Binding LastNameS}"/>
+                <DataGridTextColumn Header="Имя сотрудника"
+Width="*"
+Binding="{Binding FirstNameS}"/>
+                <DataGridTextColumn Header="Отчество сотрудника"
+Width="*"
+Binding="{Binding MiddleNameS}"/>
+                <DataGridTextColumn Header="Фамилия оператора"
+Width="*"
+Binding="{Binding LastNameO}"/>
+                <DataGridTextColumn Header="Имя Оператора"
+Width="*"
+Binding="{Binding FirstNameO}"/>
+                <DataGridTextColumn Header="Отчество оператора"
+Width="*"
+Binding="{Binding MiddleNameO}"/>
+                <DataGridTextColumn Header="Номер телефона сотрудника"
+Width="*"
+Binding="{Binding EmployeeTelephoneNumber}"/>
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</Window>
